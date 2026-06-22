@@ -1,11 +1,32 @@
-# High-Speed Log Filter (Rust)
+# log_filter
 
-A blazingly fast command-line utility for parsing, filtering, and analyzing heavy system log files.
+Command-line tool for searching and filtering log files, written in Rust.
 
-## 📌 What It Does (Business Value)
-When a system crashes, finding the root cause quickly is essential. This tool scans gigabytes of log files in seconds, isolating specific error codes or keywords so you can diagnose and fix issues faster.
+## What it does
 
-## ⚙️ Under the Hood (Technical Architecture)
-*   **Systems Programming:** Written in Rust for maximum execution speed and zero-cost abstractions.
-*   **High-Throughput I/O:** Optimized file reading mechanisms to process large datasets without bottlenecking the disk.
-*   **Algorithm:** Implements fast, case-insensitive string matching algorithms.
+Pass a keyword and a log file — it scans every line, case-insensitive, 
+and saves the matches to a file. Useful when a log is too large to grep 
+through manually or open in an editor.
+
+## Usage
+
+log_filter <search_query> <file_path> [output_file]
+
+# Examples
+log_filter ERROR system.log
+log_filter "connection refused" nginx.log failures.txt
+
+Output:
+Success! Found 42 matching lines out of 18304 total lines.
+Results are saved to 'results.txt'
+
+## Features
+
+- Case-insensitive search by default
+- Outputs match count vs total lines
+- Saves results to file (default: results.txt)
+- Graceful error handling — won't crash on bad input
+
+## Built with
+
+Rust — standard library only, no external dependencies.
